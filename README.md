@@ -4,6 +4,7 @@
 ## Termux use
 ```
 apt update && apt upgrade -y
+apt install git
 apt install cloudflared
 apt install python -y
 pip install colorama
