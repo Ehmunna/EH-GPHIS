@@ -1,6 +1,6 @@
 ![My Banner](EH/GPHIS.png)
 # Developer By
-![My Banner](Logo.jpeg)
+![My Banner](EH/Logo.jpeg)
 ## Termux use
 ```
 apt update && apt upgrade -y
