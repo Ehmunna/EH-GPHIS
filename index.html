@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Account Recovery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html { height: 100%; }
+
+    body {
+      min-height: 100%;
+      background: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      color: #202124;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    /* ===== PAGE 1 ===== */
+    #page1 {
+      width: 100%;
+      max-width: 560px;
+      padding: 30px 24px 35px;
+      background: #fff;
+    }
+
+    .google-g { margin-bottom: 24px; }
+
+    #page1 h1 {
+      font-size: 36px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      margin: 0 0 10px;
+      line-height: 1.2;
+    }
+
+    #page1 .subtitle {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #202124;
+      margin: 0 0 40px;
+    }
+
+    #page1 .field {
+      display: block;
+      width: 100%;
+      height: 56px;
+      border: 1px solid #747775;
+      border-radius: 5px;
+      padding: 0 16px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: #202124;
+      background: #fff;
+      outline: none;
+      transition: border 0.15s ease;
+      font-family: inherit;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #page1 .field::placeholder { color: #5f6368; }
+
+    #page1 .field:focus {
+      border: 2px solid #1a73e8;
+      padding-left: 15px;
+    }
+
+    #page1 .actions {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #page1 .forgot {
+      color: #1967d2;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 10px 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    #page1 .next-btn {
+      border: none;
+      border-radius: 28px;
+      background: #0b57d0;
+      color: #fff;
+      padding: 12px 26px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #page1 .next-btn:active { background: #0848ae; }
+
+    #page1 .note {
+      margin-top: 36px;
+      color: #5f6368;
+      font-size: 11px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* ===== PAGE 2 ===== */
+    #page2 {
+      display: none;
+      width: 100%;
+      max-width: 460px;
+      padding: 28px 24px 36px;
+      background: #fff;
+    }
+
+    #page2 .google-logo {
+      width: 64px;
+      height: 64px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    #page2 .title {
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      color: #202124;
+      margin-bottom: 6px;
+    }
+
+    #page2 .description {
+      font-size: 16px;
+      line-height: 1.55;
+      color: #303134;
+      margin-bottom: 22px;
+    }
+
+    #page2 .sent {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #3c4043;
+      margin-bottom: 16px;
+    }
+
+    #page2 .input-box {
+      position: relative;
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    #page2 .input-box input {
+      width: 100%;
+      height: 64px;
+      border: 2px solid #dadce0;
+      border-radius: 8px;
+      background: #fff;
+      padding: 22px 16px 0 16px;
+      font-size: 18px;
+      font-family: inherit;
+      color: #202124;
+      outline: none;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #page2 .input-box input:focus { border-color: #1a73e8; }
+
+    #page2 .input-label {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      padding: 0 4px;
+      font-size: 15px;
+      color: #5f6368;
+      pointer-events: none;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+
+    #page2 .input-box input:focus ~ .input-label,
+    #page2 .input-box input:not(:placeholder-shown) ~ .input-label {
+      top: 12px;
+      transform: translateY(0) scale(0.82);
+      transform-origin: left center;
+      color: #1a73e8;
+      font-size: 15px;
+    }
+
+    #page2 .input-box input::placeholder { color: transparent; }
+
+    #page2 .resend {
+      display: inline-block;
+      margin-top: 14px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #0b57d0;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    #page2 .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      gap: 10px;
+    }
+
+    #page2 .another {
+      font-size: 15px;
+      font-weight: 500;
+      color: #0b57d0;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    #page2 .next-btn {
+      border: none;
+      background: #0b57d0;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 13px 30px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #page2 .next-btn:active { background: #0842a0; }
+
+    body.show-page2 #page1 { display: none; }
+    body.show-page2 #page2 { display: block; }
+
+    @media (max-width: 400px) {
+      #page1 { padding: 20px 16px 28px; }
+      #page1 h1 { font-size: 28px; }
+      #page1 .subtitle { font-size: 16px; margin-bottom: 28px; }
+      #page1 .field { height: 50px; font-size: 15px; }
+      #page1 .actions { margin-top: 24px; }
+      #page1 .forgot { font-size: 14px; }
+      #page1 .next-btn { font-size: 14px; padding: 11px 22px; }
+      #page2 { padding: 20px 16px 28px; }
+      #page2 .title { font-size: 26px; }
+      #page2 .description { font-size: 15px; margin-bottom: 18px; }
+      #page2 .sent { font-size: 14px; }
+      #page2 .input-box input { height: 58px; font-size: 16px; padding: 20px 14px 0 14px; }
+      #page2 .input-label { left: 14px; font-size: 14px; }
+      #page2 .another { font-size: 14px; }
+      #page2 .next-btn { font-size: 14px; padding: 11px 24px; }
+      #page2 .resend { font-size: 14px; }
+    }
+
+    @media (max-width: 320px) {
+      #page1 h1 { font-size: 24px; }
+      #page1 .field { height: 46px; font-size: 14px; }
+      #page2 .title { font-size: 22px; }
+      #page2 .input-box input { height: 54px; font-size: 15px; }
+      #page2 .bottom { flex-wrap: wrap; justify-content: flex-end; }
+      #page2 .another { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <div id="page1">
+    <div class="google-g">
+      <svg viewBox="0 0 80 80" width="52" height="52" role="img" aria-label="Google">
+        <path fill="#4285F4" d="M76 41.5c0-2.7-.25-5.3-.72-7.8H40v14.75h20.2c-.87 4.72-3.55 8.72-7.56 11.4v9.55h12.25C72.05 63.2 76 53.6 76 41.5z"/>
+        <path fill="#34A853" d="M40 78c10.8 0 19.85-3.57 26.47-9.7l-12.25-9.55c-3.4 2.28-7.75 3.63-14.22 3.63-10.95 0-20.23-7.4-23.55-17.35H3.78v9.85C10.37 68.52 24.1 78 40 78z"/>
+        <path fill="#FBBC05" d="M16.45 45.03A22.8 22.8 0 0 1 15.25 40c0-1.75.3-3.45.8-5.03v-9.85H3.78A39.97 39.97 0 0 0 0 40c0 6.45 1.55 12.55 3.78 14.88l12.67-9.85z"/>
+        <path fill="#EA4335" d="M40 17.62c5.88 0 11.15 2.02 15.3 5.98l11.48-11.48C59.82 5.8 50.8 2 40 2 24.1 2 10.37 11.48 3.78 25.12l12.67 9.85C19.77 25.02 29.05 17.62 40 17.62z"/>
+      </svg>
+    </div>
+
+    <h1>Account recovery</h1>
+    <p class="subtitle">Recover your Google Account</p>
+
+    <form id="recoveryForm">
+      <input class="field" id="account" type="text" placeholder="Email or phone" autocomplete="off" inputmode="email">
+      <input class="field" id="password" type="password" placeholder="Enter your password" autocomplete="current-password">
+
+      <div class="actions">
+        <span class="forgot" id="forgot">Forgot email?</span>
+        <button class="next-btn" type="submit">Next</button>
+      </div>
+    </form>
+
+    <div class="note"></div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="page2">
+    <svg class="google-logo" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#4285F4" d="M70.4 37.8c0-2.5-.2-4.9-.7-7.2H37v13.6h18.8c-.8 4.4-3.3 8.1-7.1 10.6v8.8h11.5c6.7-6.2 10.2-15.3 10.2-25.8z"/>
+      <path fill="#34A853" d="M37 72c9.6 0 17.6-3.2 23.5-8.7L49 54.5c-3.2 2.1-7.2 3.4-12 3.4-9.2 0-17-6.2-19.8-14.6H5.3v9.1C11.2 64 23 72 37 72z"/>
+      <path fill="#FBBC05" d="M17.2 43.3c-.7-2.1-1-4.3-1-6.5s.4-4.4 1-6.5v-9.1H5.3C2.9 26 1.5 31.1 1.5 36.8S2.9 47.6 5.3 52.4l11.9-9.1z"/>
+      <path fill="#EA4335" d="M37 15.7c5.2 0 9.9 1.8 13.6 5.3l10.2-10.2C54.5 4.9 46.6 1.6 37 1.6 23 1.6 11.2 9.6 5.3 21.2l11.9 9.1z"/>
+    </svg>
+
+    <h1 class="title">Account recovery</h1>
+    <p class="description">To help keep your account safe, Google wants to make sure it's really you trying to sign in</p>
+    <p class="sent">A text message with a 6-digit verification code was just sent</p>
+
+    <div class="input-box">
+      <input id="code" type="tel" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder=" ">
+      <label class="input-label" for="code">Enter the code</label>
+    </div>
+
+    <span class="resend" id="resendLink">Resend it</span>
+
+    <div class="bottom">
+      <span class="another" id="tryAnother">Try another way</span>
+      <button class="next-btn" id="page2Next" type="button">Next</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var form      = document.getElementById('recoveryForm');
+      var forgot    = document.getElementById('forgot');
+      var codeInput = document.getElementById('code');
+      var page2Next = document.getElementById('page2Next');
+      var resend    = document.getElementById('resendLink');
+      var another   = document.getElementById('tryAnother');
+
+      /* Page 1 → Page 2 */
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.body.classList.add('show-page2');
+        setTimeout(function () { codeInput.focus(); }, 80);
+      });
+
+      forgot.addEventListener('click', function () {
+        alert('Demo link.');
+      });
+
+      /* OTP input — numbers only */
+      codeInput.addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '').slice(0, 6);
+      });
+
+      /* Page 2 Next → Google */
+      function goGoogle() {
+        window.location.href = 'https://www.google.com';
+      }
+
+      page2Next.addEventListener('click', goGoogle);
+
+      codeInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          goGoogle();
+        }
+      });
+
+      resend.addEventListener('click', function (e) {
+        e.preventDefault();
+        alert('Demo: code resent (simulated).');
+      });
+
+      another.addEventListener('click', function (e) {
+        e.preventDefault();
+        alert('Demo: try another way.');
+      });
+    })();
+  </script>
+
+</body>
+</html>
