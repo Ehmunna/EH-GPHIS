@@ -4,9 +4,10 @@
 ## Termux use
 ```
 apt update && apt upgrade -y
+apt install cloudflared
 apt install python -y
 pip install --upgrade pip
 pip install colorama
-git clone
+git clone https://github.com/Ehmunna/EH-GPHIS.git
 python GPHIS.py
 ```
