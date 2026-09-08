@@ -6,8 +6,8 @@
 apt update && apt upgrade -y
 apt install cloudflared
 apt install python -y
-pip install --upgrade pip
 pip install colorama
 git clone https://github.com/Ehmunna/EH-GPHIS.git
-python GPHIS.py
+cd EH-GPHIS
+python GFISH.py
 ```
